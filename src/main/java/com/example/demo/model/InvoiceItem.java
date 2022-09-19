@@ -18,10 +18,7 @@ public class InvoiceItem {
     private double unitPrice;
     @Column
     private int quantity;
-    @Column
-    private int invoice_id;
-    @Column
-    private int item_id;
+
 
     @ManyToOne
     @JoinColumn(name= "invoice_id",referencedColumnName = "id")

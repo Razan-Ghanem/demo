@@ -19,8 +19,7 @@ public class Attachment {
     private String attach_name;
     @Column
     private int attach_size;
-    @Column
-    private int invoice_id;
+
 
     @ManyToOne
     @JoinColumn(name= "invoice_id",referencedColumnName = "id")
