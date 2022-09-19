@@ -23,10 +23,7 @@ public class Invoice {
     private int inv_num;
     @Column
     private String inv_name;
-    @Column
-    private int customer_id;
-    @Column
-    private int employee_id;
+
 
     @ManyToOne
     @JoinColumn(name= "employee_id",referencedColumnName = "id")
