@@ -1,7 +1,8 @@
 package com.example.demo.model;
-import lombok.Data;
 
+import lombok.Data;
 import javax.persistence.*;
+
 
 @Entity
 @Data
@@ -12,7 +13,7 @@ public class Attachment {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column
     private String attach_path;
     @Column
