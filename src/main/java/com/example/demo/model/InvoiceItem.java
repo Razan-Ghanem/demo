@@ -13,7 +13,7 @@ public class InvoiceItem {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column
     private double unitPrice;
     @Column
