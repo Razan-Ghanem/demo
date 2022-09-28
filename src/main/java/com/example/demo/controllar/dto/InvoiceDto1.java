@@ -3,27 +3,13 @@ package com.example.demo.controllar.dto;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
-import java.util.Date;
+import java.util.List;
 
-@Data
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 
-public class InvoiceDto {
-
+@Data
+public class InvoiceDto1 extends InvoiceDto{
     private Long id;
-
-    private int inv_amount;
-
-    private Date inv_date;
-
-    private int inv_num;
-
-    private String inv_name;
-
-
-
-
-
-
+    private List<InvoiceItemDto> Items ;
 
 }

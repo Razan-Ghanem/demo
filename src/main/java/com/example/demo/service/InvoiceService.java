@@ -6,6 +6,7 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Customer;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Invoice;
+import com.example.demo.repository.InvoiceItemRepository;
 import com.example.demo.repository.InvoiceRepository;
 import org.aspectj.bridge.IMessage;
 import org.aspectj.bridge.Message;
@@ -13,12 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,24 +25,32 @@ public class InvoiceService extends GeneralDemoService{
     @Autowired
     private InvoiceRepository invoiceRepository;
 
-    public List<Invoice> getInvoices() {
-        return super.getInvoices(invoiceRepository);
+    @Autowired
+    private InvoiceItemRepository invoiceItemRepository;
 
+    public List<Invoice> getInvoices() {
+        Specification distinctSpec = (root, query, cb) -> {
+            query.distinct(true);
+            return null;
+        };
+        return invoiceRepository.findAll(distinctSpec);
     }
 
     // Todo: Add some code
-    public ResponseEntity<Invoice> getInvoiceById(long invoiceId) {
+    public Invoice getInvoiceById(long invoiceId) {
 
         Optional<Invoice> optionalInvoice = invoiceRepository.findInvoiceById(invoiceId);
 
         if (!(optionalInvoice.isPresent())){
             throw new ResourceNotFoundException(ExceptionMessages.ENTITY_NOT_FOUND);
         }
-        return new ResponseEntity(optionalInvoice,HttpStatus.OK);
+
+        return optionalInvoice.get();
     }
 
     public Invoice postInvoice(Invoice newInvoice) {
 
+        //newInvoice.getItems().stream().forEach(invoiceItem -> invoiceItem.setInvoice(newInvoice));
         return invoiceRepository.save(newInvoice);
     }
 
